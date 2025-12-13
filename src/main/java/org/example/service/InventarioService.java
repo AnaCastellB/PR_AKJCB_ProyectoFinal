@@ -1,29 +1,42 @@
 package org.example.service;
 
 import org.example.model.Videojuego;
-import java.util.ArrayList;
+import org.example.repository.VideojuegoRepository;
+
 import java.util.List;
 
 public class InventarioService {
 
-    private List<Videojuego> inventario = new ArrayList<>();
+    private VideojuegoRepository repository;
 
-    public void agregarVideojuego(Videojuego v) {
-        inventario.add(v);
+    public InventarioService(VideojuegoRepository repository) {
+        this.repository = repository;
     }
 
-    public Videojuego buscarPorTitulo(String titulo) {
-        for (Videojuego v : inventario) {
-            if (v.getTitulo().equalsIgnoreCase(titulo)) {
-                return v;
-            }
-        }
-        return null;
+    public void agregarVideojuego(Videojuego videojuego) {
+        repository.guardar(videojuego);
     }
 
-    public void mostrarInventario() {
-        for (Videojuego v : inventario) {
-            System.out.println(v);
+    public List<Videojuego> listarVideojuegos() {
+        return repository.obtenerTodos();
+    }
+
+    public Videojuego buscarVideojuego(String titulo) {
+        return repository.buscarPorTitulo(titulo);
+    }
+
+    public boolean venderVideojuego(String titulo) {
+        Videojuego v = repository.buscarPorTitulo(titulo);
+
+        if (v == null) {
+            return false;
         }
+
+        if (v.getStock() > 0) {
+            v.setStock(v.getStock() - 1);
+            return true;
+        }
+
+        return false;
     }
 }
