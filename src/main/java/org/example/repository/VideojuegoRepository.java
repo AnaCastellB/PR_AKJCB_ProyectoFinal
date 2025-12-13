@@ -7,11 +7,7 @@ import java.util.List;
 
 public class VideojuegoRepository {
 
-    private List<Videojuego> videojuegos;
-
-    public VideojuegoRepository() {
-        this.videojuegos = new ArrayList<>();
-    }
+    private List<Videojuego> videojuegos = new ArrayList<>();
 
     public void guardar(Videojuego videojuego) {
         videojuegos.add(videojuego);

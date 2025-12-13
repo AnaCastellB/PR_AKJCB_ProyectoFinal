@@ -20,10 +20,6 @@ public class Videojuego {
         return titulo;
     }
 
-    public String getConsola() {
-        return consola;
-    }
-
     public int getStock() {
         return stock;
     }

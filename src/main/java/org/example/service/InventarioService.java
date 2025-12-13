@@ -21,22 +21,14 @@ public class InventarioService {
         return repository.obtenerTodos();
     }
 
-    public Videojuego buscarVideojuego(String titulo) {
-        return repository.buscarPorTitulo(titulo);
-    }
-
     public boolean venderVideojuego(String titulo) {
         Videojuego v = repository.buscarPorTitulo(titulo);
 
-        if (v == null) {
+        if (v == null || v.getStock() <= 0) {
             return false;
         }
 
-        if (v.getStock() > 0) {
-            v.setStock(v.getStock() - 1);
-            return true;
-        }
-
-        return false;
+        v.setStock(v.getStock() - 1);
+        return true;
     }
 }
