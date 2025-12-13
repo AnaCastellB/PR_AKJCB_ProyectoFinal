@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Clase Singleton para manejar la conexión a MySQL
- */
 public class DatabaseConnection {
 
     private static final String URL = "jdbc:mysql://localhost:3306/tienda_videojuegos?useSSL=false&serverTimezone=UTC";
