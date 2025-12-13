@@ -1,17 +1,30 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import org.example.model.Videojuego;
+import org.example.service.InventarioService;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        InventarioService inventario = new InventarioService();
+
+        inventario.agregarVideojuego(
+                new Videojuego(1, "Zelda Tears of the Kingdom", "Nintendo Switch", 1399, 3)
+        );
+
+        inventario.agregarVideojuego(
+                new Videojuego(2, "Mario Kart 8 Deluxe", "Nintendo Switch", 1199, 0)
+        );
+
+        inventario.mostrarInventario();
+
+        System.out.println("\nBuscando juego...");
+        var juego = inventario.buscarPorTitulo("Mario Kart 8 Deluxe");
+
+        if (juego != null && juego.getStock() > 0) {
+            System.out.println("Disponible en tienda");
+        } else {
+            System.out.println("No disponible, contactar a tienda");
         }
     }
 }
