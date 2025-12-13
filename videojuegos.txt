@@ -1,0 +1,4 @@
+1|Zelda|Switch|1399.0|2
+2|Mario Kart|Switch|1199.0|5
+3|Halo Infinite|Xbox|1299.0|0
+12|Zelda|Nintendo|123.0|2
