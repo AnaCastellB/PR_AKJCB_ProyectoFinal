@@ -21,7 +21,7 @@ public class ClienteMain {
              Scanner sc = new Scanner(System.in)) {
 
             while (true) {
-                System.out.println("\n=== CLIENTE TIENDA DE VIDEOJUEGOS ===");
+                System.out.println("\n VENDEDOR TIENDA DE VIDEOJUEGOS ");
                 System.out.println("1) Registrar videojuego");
                 System.out.println("2) Listar inventario");
                 System.out.println("3) Buscar videojuego por titulo");

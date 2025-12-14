@@ -1,8 +1,8 @@
 package org.example.service;
 
+import org.example.app.VideojuegoTraductor;
 import org.example.model.Videojuego;
 import org.example.repository.VideojuegoRepository;
-import org.example.app.VideojuegoTraductor;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -14,13 +14,12 @@ import java.util.List;
 public class InventarioService {
 
     private final VideojuegoRepository repository;
-    private final Path archivo = Paths.get("videojuegos.txt"); // se guarda en la raíz del proyecto
+    private final Path archivo = Paths.get("videojuegos.txt");
 
     public InventarioService(VideojuegoRepository repository) {
         this.repository = repository;
     }
 
-    // ====== Persistencia simple ======
     public void cargar() {
         try {
             if (!Files.exists(archivo)) return;
@@ -29,10 +28,8 @@ public class InventarioService {
             List<Videojuego> cargados = new ArrayList<>();
 
             for (String linea : lineas) {
-                if (linea == null) continue;
-                linea = linea.trim();
-                if (linea.isEmpty()) continue;
-                cargados.add(VideojuegoTraductor.deserializar(linea));
+                if (linea == null || linea.trim().isEmpty()) continue;
+                cargados.add(VideojuegoTraductor.deserializar(linea.trim()));
             }
 
             repository.reemplazarTodo(cargados);
@@ -54,20 +51,15 @@ public class InventarioService {
         }
     }
 
-    //  Métodos del menú
+    // ===== CRUD =====
+
     public void registrar(Videojuego videojuego) {
         repository.guardar(videojuego);
+        guardar();
     }
 
     public List<Videojuego> listarInventario() {
         return repository.obtenerTodos();
-    }
-
-    public void mostrarInventario() {
-        System.out.println("Inventario:");
-        for (Videojuego v : repository.obtenerTodos()) {
-            System.out.println(v);
-        }
     }
 
     public Videojuego buscarPorTitulo(String titulo) {
@@ -80,12 +72,28 @@ public class InventarioService {
 
     public boolean venderPorTitulo(String titulo) {
         Videojuego v = repository.buscarPorTitulo(titulo);
-        if (v == null) return false;
-        if (v.getStock() <= 0) return false;
+        if (v == null || v.getStock() <= 0) return false;
 
         v.setStock(v.getStock() - 1);
-        repository.guardar(v); // guarda actualización
+        repository.guardar(v);
+        guardar();
         return true;
+    }
+
+    public boolean actualizarStock(int id, int nuevoStock) {
+        Videojuego v = buscarPorId(id);
+        if (v == null) return false;
+
+        v.setStock(nuevoStock);
+        repository.guardar(v);
+        guardar();
+        return true;
+    }
+
+    public boolean eliminar(int id) {
+        boolean ok = repository.eliminarPorId(id);
+        if (ok) guardar();
+        return ok;
     }
 
     public List<Videojuego> listarDisponibles() {
@@ -104,7 +112,19 @@ public class InventarioService {
         return res;
     }
 
-    public void agregarVideojuego(Videojuego v) { registrar(v); }
-    public Videojuego buscarVideojuego(String titulo) { return buscarPorTitulo(titulo); }
-    public boolean venderVideojuego(String titulo) { return venderPorTitulo(titulo); }
+    public void agregarVideojuego(Videojuego v) {
+        registrar(v);
+    }
+
+    public Videojuego buscarVideojuego(String titulo) {
+        return buscarPorTitulo(titulo);
+    }
+
+    public boolean venderVideojuego(String titulo) {
+        return venderPorTitulo(titulo);
+    }
+
+    public List<Videojuego> listarVideojuegos() {
+        return listarInventario();
+    }
 }

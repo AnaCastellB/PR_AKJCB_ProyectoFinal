@@ -164,7 +164,7 @@ class ClienteHandler implements Runnable {
 
                     synchronized (inventario) {
                         inventario.agregarVideojuego(new Videojuego(id, titulo, consola, precio, stock));
-                        inventario.guardar(); // Persistir cambios
+                        inventario.guardar();
                     }
 
                     return "OK|Registrado";
