@@ -24,7 +24,7 @@ public class ServidorMain {
     private static InventarioService inventario;
 
     public static void main(String[] args) {
-        System.out.println("=== SERVIDOR TIENDA DE VIDEOJUEGOS ===");
+        System.out.println("= SERVIDOR TIENDA DE VIDEOJUEGOS ");
         System.out.println("Iniciando en puerto " + PUERTO + "...");
 
         // Inicializar repositorio compartido
