@@ -34,7 +34,7 @@ public class Videojuego implements Serializable {
     public void setPrecio(double precio) { this.precio = precio; }
     public void setStock(int stock) { this.stock = stock; }
 
-    // Comparación por ID (muy útil en repositorios/colecciones)
+    // Comparación por ID
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

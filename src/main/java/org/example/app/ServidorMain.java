@@ -34,7 +34,7 @@ public class ServidorMain {
         // Cargar datos persistentes
         inventario.cargar();
 
-        // Datos de prueba (opcional)
+        // Datos de prueba
         if (inventario.listarInventario().isEmpty()) {
             inventario.agregarVideojuego(new Videojuego(1, "Zelda", "Switch", 1399, 3));
             inventario.agregarVideojuego(new Videojuego(2, "Mario Kart", "Switch", 1199, 5));

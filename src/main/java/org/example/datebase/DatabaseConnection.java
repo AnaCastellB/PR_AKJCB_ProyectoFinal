@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/tienda_videojuegos?useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/?user=root";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
     private static DatabaseConnection instance;
@@ -27,9 +27,6 @@ public class DatabaseConnection {
         }
     }
 
-    /**
-     * Obtiene la instancia única de la conexión (Singleton)
-     */
     public static DatabaseConnection getInstance() {
         if (instance == null || !isConnectionValid()) {
             instance = new DatabaseConnection();
@@ -72,7 +69,7 @@ public class DatabaseConnection {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("✅ Conexión cerrada correctamente");
+                System.out.println("Conexión cerrada correctamente");
             }
         } catch (SQLException e) {
             System.err.println("Error al cerrar conexión: " + e.getMessage());

@@ -54,7 +54,7 @@ public class InventarioService {
         }
     }
 
-    // ====== Métodos del menú (los que tu Main está buscando) ======
+    //  Métodos del menú
     public void registrar(Videojuego videojuego) {
         repository.guardar(videojuego);
     }
@@ -104,7 +104,6 @@ public class InventarioService {
         return res;
     }
 
-    // ====== Alias por compatibilidad (por si en servidor/cliente los usaste con otros nombres) ======
     public void agregarVideojuego(Videojuego v) { registrar(v); }
     public Videojuego buscarVideojuego(String titulo) { return buscarPorTitulo(titulo); }
     public boolean venderVideojuego(String titulo) { return venderPorTitulo(titulo); }

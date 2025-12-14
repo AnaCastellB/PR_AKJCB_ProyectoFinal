@@ -4,7 +4,6 @@ import org.example.model.Videojuego;
 
 public class VideojuegoTraductor {
 
-    // Formato: id|titulo|consola|precio|stock
     public static String serializar(Videojuego v) {
         if (v == null) return "";
         return v.getId() + "|" +
@@ -28,19 +27,16 @@ public class VideojuegoTraductor {
         return new Videojuego(id, titulo, consola, precio, stock);
     }
 
-    // Alias para lo que te marcó en rojo: desdeLinea(...)
     public static Videojuego desdeLinea(String linea) {
         return deserializar(linea);
     }
 
-    // (por si lo usas en algún lado)
     public static String aLinea(Videojuego v) {
         return serializar(v);
     }
 
     private static String limpiar(String s) {
         if (s == null) return "";
-        // Evita romper el separador | en el archivo/protocolo
         return s.replace("|", "/").trim();
     }
 }

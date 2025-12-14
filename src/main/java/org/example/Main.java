@@ -3,24 +3,27 @@ package org.example;
 import org.example.model.Videojuego;
 import org.example.repository.VideojuegoRepository;
 import org.example.service.InventarioService;
+import org.example.rest.ServidorRest;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
 
         VideojuegoRepository repo = new VideojuegoRepository();
         InventarioService inventario = new InventarioService(repo);
 
-        // Cargar al iniciar
         inventario.cargar();
+
+        new Thread(() -> ServidorRest.iniciar(repo)).start();
 
         Scanner sc = new Scanner(System.in);
         int opcion;
 
         do {
-            System.out.println("\n=== TIENDA DE VIDEOJUEGOS (LOCAL) ===");
+            System.out.println("\n TIENDA DE VIDEOJUEGOS ");
             System.out.println("1) Registrar videojuego");
             System.out.println("2) Mostrar inventario");
             System.out.println("3) Buscar por titulo");
@@ -92,7 +95,7 @@ public class Main {
                     System.out.println("Cargado desde archivo.");
                 }
                 case 0 -> {
-                    inventario.guardar(); // guardar al salir
+                    inventario.guardar();
                     System.out.println("Guardado y saliendo...");
                 }
                 default -> System.out.println("Opcion invalida.");
