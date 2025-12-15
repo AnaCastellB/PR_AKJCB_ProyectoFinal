@@ -28,8 +28,8 @@ public class Main {
             System.out.println("2) Mostrar inventario");
             System.out.println("3) Buscar por titulo");
             System.out.println("4) Vender por titulo");
-            System.out.println("5) Mostrar disponibles (stock > 0)");
-            System.out.println("6) Mostrar agotados (stock = 0)");
+            System.out.println("5) Mostrar disponibles");
+            System.out.println("6) Mostrar agotados");
             System.out.println("7) Buscar por ID");
             System.out.println("8) Guardar ahora");
             System.out.println("9) Cargar ahora");

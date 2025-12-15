@@ -1,61 +1,40 @@
 package org.example.service;
 
-import org.example.app.VideojuegoTraductor;
+import org.example.database.DatabaseConnection;
 import org.example.model.Videojuego;
 import org.example.repository.VideojuegoRepository;
 
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InventarioService {
 
     private final VideojuegoRepository repository;
-    private final Path archivo = Paths.get("videojuegos.txt");
 
     public InventarioService(VideojuegoRepository repository) {
         this.repository = repository;
     }
 
+    /**
+     * Cargar datos (ahora desde BD, no desde archivo)
+     */
     public void cargar() {
-        try {
-            if (!Files.exists(archivo)) return;
-
-            List<String> lineas = Files.readAllLines(archivo, StandardCharsets.UTF_8);
-            List<Videojuego> cargados = new ArrayList<>();
-
-            for (String linea : lineas) {
-                if (linea == null || linea.trim().isEmpty()) continue;
-                cargados.add(VideojuegoTraductor.deserializar(linea.trim()));
-            }
-
-            repository.reemplazarTodo(cargados);
-        } catch (Exception e) {
-            System.out.println("No se pudo cargar archivo: " + e.getMessage());
-        }
+        // Inicializar datos de prueba si la BD está vacía
+        DatabaseConnection.inicializarDatosPrueba();
+        System.out.println("Inventario cargado desde BD");
     }
 
+    /**
+     * Guardar datos NOTAAAA: ya no es necesario porque se guarda automáticamente en BD
+     */
     public void guardar() {
-        try {
-            List<Videojuego> lista = repository.obtenerTodos();
-            List<String> lineas = new ArrayList<>();
-            for (Videojuego v : lista) {
-                lineas.add(VideojuegoTraductor.serializar(v));
-            }
-            Files.write(archivo, lineas, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            System.out.println("No se pudo guardar archivo: " + e.getMessage());
-        }
+        // Ya no hace nada porque cada operación guarda directamente en BD
+        System.out.println("Cambios persistidos en BD automáticamente");
     }
 
-    // ===== CRUD =====
 
     public void registrar(Videojuego videojuego) {
         repository.guardar(videojuego);
-        guardar();
     }
 
     public List<Videojuego> listarInventario() {
@@ -76,24 +55,15 @@ public class InventarioService {
 
         v.setStock(v.getStock() - 1);
         repository.guardar(v);
-        guardar();
         return true;
     }
 
     public boolean actualizarStock(int id, int nuevoStock) {
-        Videojuego v = buscarPorId(id);
-        if (v == null) return false;
-
-        v.setStock(nuevoStock);
-        repository.guardar(v);
-        guardar();
-        return true;
+        return repository.actualizarStock(id, nuevoStock);
     }
 
     public boolean eliminar(int id) {
-        boolean ok = repository.eliminarPorId(id);
-        if (ok) guardar();
-        return ok;
+        return repository.eliminarPorId(id);
     }
 
     public List<Videojuego> listarDisponibles() {

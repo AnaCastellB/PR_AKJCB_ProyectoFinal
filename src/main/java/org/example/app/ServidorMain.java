@@ -39,7 +39,6 @@ public class ServidorMain {
             inventario.agregarVideojuego(new Videojuego(1, "Zelda", "Switch", 1399, 3));
             inventario.agregarVideojuego(new Videojuego(2, "Mario Kart", "Switch", 1199, 5));
             inventario.agregarVideojuego(new Videojuego(3, "Halo Infinite", "Xbox", 1299, 0));
-            inventario.guardar();
             System.out.println("Datos de prueba cargados.");
         }
 
@@ -164,7 +163,7 @@ class ClienteHandler implements Runnable {
 
                     synchronized (inventario) {
                         inventario.agregarVideojuego(new Videojuego(id, titulo, consola, precio, stock));
-                        inventario.guardar();
+                        inventario.guardar(); // Persistir cambios
                     }
 
                     return "OK|Registrado";

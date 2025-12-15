@@ -42,7 +42,6 @@ public class VideojuegoTraductor {
     }
 
     public static Videojuego jsonAVideojuego(String json) {
-        // Quitar llaves
         json = json.trim();
         json = json.substring(1, json.length() - 1);
 

@@ -3,3 +3,4 @@
 3|Halo Infinite|Xbox|1299.0|0
 12|Zelda|Nintendo|123.0|2
 5|Spider-Man|PlayStation|1299.0|8
+99|Remote Game|PC|500.0|2
