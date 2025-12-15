@@ -1,4 +1,3 @@
-// HashUtil.java
 package org.example.security;
 
 import java.nio.charset.StandardCharsets;

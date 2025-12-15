@@ -42,7 +42,7 @@ public class UsuarioRepository {
             }
 
         } catch (SQLException e) {
-            System.err.println("❌ Error en login: " + e.getMessage());
+            System.err.println("Error en login: " + e.getMessage());
         }
 
         return null;
@@ -70,7 +70,7 @@ public class UsuarioRepository {
             return true;
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al registrar usuario: " + e.getMessage());
+            System.err.println("Error al registrar usuario: " + e.getMessage());
             return false;
         }
     }
@@ -97,7 +97,7 @@ public class UsuarioRepository {
             }
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al obtener usuarios: " + e.getMessage());
+            System.err.println("Error al obtener usuarios: " + e.getMessage());
         }
 
         return lista;
@@ -126,7 +126,7 @@ public class UsuarioRepository {
             }
 
         } catch (SQLException e) {
-            System.err.println("❌ Error al buscar usuario: " + e.getMessage());
+            System.err.println("Error al buscar usuario: " + e.getMessage());
         }
 
         return null;
