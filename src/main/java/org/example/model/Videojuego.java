@@ -27,7 +27,7 @@ public class Videojuego implements Serializable {
     public double getPrecio() { return precio; }
     public int getStock() { return stock; }
 
-    // Setters (por si luego editas datos)
+    // Setters (por si luego edito los datos)
     public void setId(int id) { this.id = id; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
     public void setConsola(String consola) { this.consola = consola; }
