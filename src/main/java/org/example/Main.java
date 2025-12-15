@@ -3,8 +3,7 @@ package org.example;
 import org.example.model.Videojuego;
 import org.example.repository.VideojuegoRepository;
 import org.example.service.InventarioService;
-import org.example.rest.ServidorRest;
-
+import org.example.app.ServidorRestMain;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,8 +15,6 @@ public class Main {
         InventarioService inventario = new InventarioService(repo);
 
         inventario.cargar();
-
-        new Thread(() -> ServidorRest.iniciar(repo)).start();
 
         Scanner sc = new Scanner(System.in);
         int opcion;

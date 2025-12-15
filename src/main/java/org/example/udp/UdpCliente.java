@@ -24,8 +24,14 @@ public class UdpCliente {
 
             socket.send(packet);
 
+            System.out.println("Mensaje UDP enviado");
+
         } catch (Exception e) {
             System.out.println("Error enviando UDP: " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        enviarMensaje("SECURE|Prueba desde UdpCliente");
     }
 }
