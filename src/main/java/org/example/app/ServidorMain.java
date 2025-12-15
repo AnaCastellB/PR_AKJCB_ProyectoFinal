@@ -131,7 +131,7 @@ class ClienteHandler implements Runnable {
             switch (cmd) {
                 case "LISTAR": {
                     out.println("OK");
-                    List<Videojuego> lista = inventario.listarInventario(); // ✅ CORREGIDO
+                    List<Videojuego> lista = inventario.listarInventario();
                     for (Videojuego v : lista) {
                         out.println(VideojuegoTraductor.serializar(v));
                     }

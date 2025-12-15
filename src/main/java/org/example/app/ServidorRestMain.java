@@ -2,6 +2,7 @@ package org.example.app;
 
 import com.sun.net.httpserver.HttpServer;
 import org.example.repository.VideojuegoRepository;
+import org.example.rest.VideojuegoHttpHandler;
 import org.example.service.InventarioService;
 
 import java.net.InetSocketAddress;

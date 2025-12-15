@@ -2,9 +2,10 @@ package org.example.app;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.example.model.Videojuego;
-import org.example.service.InventarioService;
 import org.example.app.VideojuegoTraductor;
+import org.example.model.Videojuego;
+import org.example.security.Seguridad;
+import org.example.service.InventarioService;
 import org.example.udp.UdpCliente;
 
 import java.io.IOException;
@@ -23,6 +24,14 @@ public class VideojuegoHttpHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+
+        // SEGURIDAD
+        String apiKey = exchange.getRequestHeaders().getFirst("X-API-KEY");
+        if (apiKey == null || !Seguridad.validarApiKey(apiKey)) {
+            responder(exchange, 401, "{\"error\":\"No autorizado\"}");
+            return;
+        }
+
         String metodo = exchange.getRequestMethod();
 
         switch (metodo) {
@@ -56,9 +65,7 @@ public class VideojuegoHttpHandler implements HttpHandler {
         inventario.registrar(v);
         inventario.guardar();
 
-        UdpCliente.enviarMensaje(
-                "Nuevo videojuego agregado: " + v.getTitulo()
-        );
+        UdpCliente.enviarMensaje("SECURE|Videojuego agregado: " + v.getTitulo());
 
         responder(exchange, 201, "{\"mensaje\":\"Videojuego registrado\"}");
     }
@@ -72,17 +79,16 @@ public class VideojuegoHttpHandler implements HttpHandler {
 
         if (ok) {
             UdpCliente.enviarMensaje(
-                    "Stock actualizado | ID: " + v.getId() +
-                            " | Nuevo stock: " + v.getStock()
+                    "SECURE|Stock actualizado ID " + v.getId() +
+                            " nuevo stock " + v.getStock()
             );
-
             responder(exchange, 200, "{\"mensaje\":\"Stock actualizado\"}");
         } else {
             responder(exchange, 404, "{\"error\":\"Videojuego no encontrado\"}");
         }
     }
 
-    //  DELETE
+    // DELETE
     private void manejarDelete(HttpExchange exchange) throws IOException {
         String body = leerBody(exchange);
         int id = Integer.parseInt(body.trim());
@@ -90,10 +96,7 @@ public class VideojuegoHttpHandler implements HttpHandler {
         boolean ok = inventario.eliminar(id);
 
         if (ok) {
-            UdpCliente.enviarMensaje(
-                    "Videojuego eliminado | ID: " + id
-            );
-
+            UdpCliente.enviarMensaje("SECURE|Videojuego eliminado ID " + id);
             responder(exchange, 200, "{\"mensaje\":\"Videojuego eliminado\"}");
         } else {
             responder(exchange, 404, "{\"error\":\"No encontrado\"}");

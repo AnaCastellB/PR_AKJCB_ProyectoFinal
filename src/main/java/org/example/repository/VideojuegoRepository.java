@@ -36,7 +36,7 @@ public class VideojuegoRepository {
                         psUpdate.setString(4, "Actualizado");
                         psUpdate.setInt(5, videojuego.getId());
                         psUpdate.executeUpdate();
-                        System.out.println("✓ Videojuego actualizado: ID " + videojuego.getId());
+                        System.out.println("Videojuego actualizado: ID " + videojuego.getId());
                     }
                 } else {
                     // INSERTAR
@@ -47,7 +47,7 @@ public class VideojuegoRepository {
                         psInsert.setInt(4, videojuego.getStock());
                         psInsert.setString(5, "Nuevo videojuego");
                         psInsert.executeUpdate();
-                        System.out.println("✓ Videojuego insertado: ID " + videojuego.getId());
+                        System.out.println("Videojuego insertado: ID " + videojuego.getId());
                     }
                 }
             }

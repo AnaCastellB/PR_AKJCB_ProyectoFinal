@@ -60,7 +60,7 @@ public class DatabaseConnection {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("✓ Conexión cerrada correctamente");
+                System.out.println("Conexión cerrada correctamente");
             }
         } catch (SQLException e) {
             System.err.println("Error al cerrar conexión: " + e.getMessage());
@@ -84,7 +84,7 @@ public class DatabaseConnection {
                         "('Halo Infinite', 'Xbox', 0, 5, 'FPS espacial'), " +
                         "('Cyberpunk 2077', 'PC', 2, 20, 'RPG futurista')");
 
-                System.out.println("✓ Datos de prueba insertados");
+                System.out.println("Datos de prueba insertados");
             }
 
             // Verificar si ya hay usuarios
@@ -96,7 +96,7 @@ public class DatabaseConnection {
                         "('Juan Pérez', 'juan@cliente.com', 'juan123', 'CLIENTE'), " +
                         "('María García', 'maria@cliente.com', 'maria123', 'CLIENTE')");
 
-                System.out.println("✓ Usuarios de prueba creados");
+                System.out.println("Usuarios de prueba creados");
             }
 
         } catch (SQLException e) {
